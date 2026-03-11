@@ -35,6 +35,6 @@ The amplifier is designed using **TSMC 180 nm CMOS technology** with the objecti
 | Transistor Type | M1:NMOS, M2:PMOS |
 | Channel Length (L) | 180 nm |
 |Maximum power supply | 0.4mW |
-Load Capacitance | $C_L$ | 0.5 pF |
-| Channel Length | $L$ | 180 nm |
-| Threshold Voltage | $V_{th}$ | $\approx 0.366$ V |
+Load Capacitance | 0.5 pF |
+| Channel Length |  180 nm |
+| Threshold Voltage | $\approx 0.366$ V |
