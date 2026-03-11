@@ -31,12 +31,10 @@ The amplifier is designed using **TSMC 180 nm CMOS technology** with the objecti
 | Parameter | Specification |
 |-----------|--------------|
 | Technology | TSMC 180 nm CMOS |
-| Supply Voltage (VDD) | 1.8 V – 2 V |
-| Transistor Type | NMOS / PMOS |
+| Supply Voltage (VDD) | 1.2 V  |
+| Transistor Type | M1:NMOS, M2:PMOS |
 | Channel Length (L) | 180 nm |
-| Operating Region | Saturation Region |
-| Biasing Method | Resistive Biasing |
-| Input Signal | Small Signal AC |
-| Load | Resistive Load |
-| Simulation Tool | SPICE / LTspice / Cadence |
-| Analyses Performed | DC Analysis, AC Analysis, Transient Analysis |
+|Maximum power supply | 0.4mW |
+Load Capacitance | $C_L$ | 0.5 pF |
+| Channel Length | $L$ | 180 nm |
+| Threshold Voltage | $V_{th}$ | $\approx 0.366$ V |
