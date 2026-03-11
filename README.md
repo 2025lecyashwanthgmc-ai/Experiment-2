@@ -38,3 +38,7 @@ The amplifier is designed using **TSMC 180 nm CMOS technology** with the objecti
 Load Capacitance | 0.5 pF |
 | Channel Length |  180 nm |
 | Threshold Voltage | $\approx 0.366$ V |
+
+
+
+![Image description](https://github.com/2025lecyashwanthgmc-ai/Experiment-2/blob/main/circuit.jpeg?raw=true)
