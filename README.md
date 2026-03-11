@@ -22,3 +22,21 @@ The circuits are simulated using **SPICE-based simulation tools** with the **TSM
 - **DC Analysis** – To determine the biasing point of the amplifier.
 - **AC Analysis** – To study the frequency response and voltage gain.
 - **Transient Analysis** – To observe the time-domain response of the amplifier.
+
+
+## Design Specifications
+
+The amplifier is designed using **TSMC 180 nm CMOS technology** with the objective of achieving stable operation and sufficient voltage gain for analog signal amplification. The following design specifications are considered during the circuit implementation and simulation.
+
+| Parameter | Specification |
+|-----------|--------------|
+| Technology | TSMC 180 nm CMOS |
+| Supply Voltage (VDD) | 1.8 V – 2 V |
+| Transistor Type | NMOS / PMOS |
+| Channel Length (L) | 180 nm |
+| Operating Region | Saturation Region |
+| Biasing Method | Resistive Biasing |
+| Input Signal | Small Signal AC |
+| Load | Resistive Load |
+| Simulation Tool | SPICE / LTspice / Cadence |
+| Analyses Performed | DC Analysis, AC Analysis, Transient Analysis |
