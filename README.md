@@ -144,8 +144,15 @@ for **ID = 200 µA** with **maximum symmetric output swing**.
 ---
 ## Output Voltage for Maximum Swing
 
-To achieve **maximum symmetric signal swing**, the NMOS drain–source
-voltage is placed near the midpoint of the supply.
+To achieve **maximum symmetric signal swing**, the NMOS drain–source voltage
+is placed near the midpoint of the supply voltage. This biasing ensures that
+the output signal can swing equally in both positive and negative directions
+without driving the transistor into cutoff or triode region.
+
+By setting the operating point around the middle of the supply voltage,
+sufficient voltage headroom is maintained for both the drain and source
+terminals. This allows the amplifier to produce a larger undistorted output
+signal and improves the overall dynamic range of the circuit.
 
 | VDS Calculation | Result |
 |-----------------|--------|
@@ -154,8 +161,14 @@ voltage is placed near the midpoint of the supply.
 **Justification**
 
 Placing the operating point at **half the supply voltage**
-provides equal headroom for positive and negative output swings,
-thereby maximizing dynamic range.
+provides equal headroom for both positive and negative output swings.
+This ensures that the output signal can vary symmetrically around the
+quiescent point without causing the transistor to enter cutoff or
+triode region.
+
+As a result, the amplifier can produce a larger undistorted output
+signal and utilize the available supply voltage more effectively,
+thereby maximizing the **dynamic range** of the circuit.
 
 ---
 ## Source Voltage Selection
@@ -274,7 +287,14 @@ The transistor widths were slightly increased during simulation to compensate fo
 (Source Degenerated Common Source Amplifier)
 
 To evaluate the time-domain performance of the amplifier, a small-signal
-sinusoidal input was applied at the gate terminal.
+sinusoidal input was applied at the gate terminal. This analysis helps to
+observe how the amplifier responds to a time-varying input signal.
+
+By applying a sinusoidal signal, the amplification capability, phase
+relationship between input and output, and stability of the operating
+point can be verified. It also helps to check whether the output signal
+is amplified without distortion and confirms proper biasing of the
+transistor in the saturation region.
 
 ## Input Signal Parameters
 
@@ -286,8 +306,15 @@ Input command used in LTspice:
 Vin = SINE(0.81 10m 1k)
 
 The DC offset corresponds to the calculated gate bias voltage required
-to maintain **ID ≈ 200 µA**.
+to maintain **ID ≈ 200 µA**. 
+This bias voltage ensures that the MOSFET
+operates at the desired operating point and remains in the **saturation
+region** during signal operation.
 
+Maintaining the correct DC bias is important because it allows the
+amplifier to respond linearly to small input signal variations while
+preventing the transistor from entering cutoff or triode region.
+This ensures stable operation and proper amplification of the input signal.
 ---
 
 ## Input Waveform
@@ -304,7 +331,15 @@ The above waveform represents the sinusoidal input applied at the gate.
 
 
 Since this is a **common source amplifier**, the output signal is inverted
-with respect to the input and exhibits a larger amplitude.
+with respect to the input and exhibits a larger amplitude. This phase
+inversion occurs because an increase in the gate voltage increases the
+drain current, which in turn causes a larger voltage drop across the load
+at the drain terminal.
+
+As a result, the drain voltage decreases when the input voltage increases,
+producing an output signal that is **180° out of phase** with the input.
+At the same time, the change in drain current creates a larger voltage
+variation at the output, resulting in signal amplification.
 
 ---
 
@@ -313,7 +348,15 @@ with respect to the input and exhibits a larger amplitude.
 <img width="1015" height="461" alt="2aboth" src="https://github.com/user-attachments/assets/6c48fa92-2d63-428b-a59b-20446c771d07" />
 
 The combined waveform clearly shows amplification and the expected
-**180° phase inversion**.
+**180° phase inversion** between the input and output signals. This
+behavior is characteristic of a common source amplifier configuration,
+where the output voltage varies in the opposite direction to the input
+voltage.
+
+When the input signal increases, the drain current increases, causing
+a larger voltage drop across the load and reducing the drain voltage.
+As a result, the output signal appears inverted while also having a
+larger amplitude compared to the input signal.
 
 ---
 
@@ -327,13 +370,27 @@ The combined waveform clearly shows amplification and the expected
 
 The output signal is inverted relative to the input and shows
 clear voltage amplification without distortion for the applied
-small-signal input.
+small-signal input. This confirms that the MOSFET is properly
+biased in the **saturation region** and the amplifier operates
+in its linear region.
+
+Since the input signal amplitude is small, the transistor
+remains within the small-signal operating range, allowing
+accurate amplification without clipping or waveform distortion.
 
 ---
+
 # AC Analysis – Circuit 2A
 
-Small-signal AC analysis was performed to determine the frequency response
-and midband gain of the amplifier.
+Small-signal AC analysis was performed to determine the frequency
+response and midband gain of the amplifier. This analysis helps
+to study how the gain of the amplifier varies with frequency and
+to identify important parameters such as bandwidth and −3 dB
+cutoff frequency.
+
+The AC analysis also verifies the theoretical gain of the circuit
+and shows the frequency range over which the amplifier provides
+stable and consistent amplification.
 
 ### Simulation Parameters
 
@@ -370,18 +427,35 @@ Av = - gm₁ / (1 + gm₁RS + RS/ro₁) × ([gm₁RSro₁ + RS + ro₁] ∥ ro�
 |-------------|-----------------------|--------------|-----------|
 | 1 + 1.6 + (1k/58.8k) = **2.617** | ([gm₁RSro₁ + RS + ro₁] ∥ ro₂) ≈ **42.6 kΩ** | (1.6 mS / 2.617) × 42.6 kΩ ≈ **26 V/V** | 20 log₁₀(26) ≈ **28 dB** |
 
+The above calculation shows that the voltage gain of the amplifier
+depends on the transconductance (**gm**) and the effective output
+resistance of the circuit. The source degeneration resistor **RS**
+introduces negative feedback, which slightly reduces the gain but
+improves the stability and linearity of the amplifier.
+
 For **TSMC 180 nm technology**, the channel-length modulation parameter
 λ typically lies in the range **0.1–0.2 V⁻¹**, which produces output
 resistance values consistent with the LTspice operating point.
+This parameter affects the output resistance **ro** of the MOSFET
+and therefore influences the overall voltage gain of the amplifier.
 
 ---
+
 ### Observation
-The AC analysis shows a midband gain of 28.71 dB, which agrees closely
-with both theoretical and transient gain results.
+
+The AC analysis shows a midband gain of **28.71 dB**, which agrees
+closely with both theoretical and transient gain results. This confirms
+that the circuit is properly biased and operating in the intended
+amplification region.
+
 ### Reason for Small Variation
+
 The difference occurs because theoretical calculations assume ideal
 device behavior, while LTspice includes practical effects such as
-channel-length modulation.
+channel-length modulation, parasitic capacitances, and mobility
+degradation. These non-ideal effects slightly modify the small-signal
+parameters (**gm** and **ro**) of the transistor, leading to minor
+differences between theoretical and simulated gain values.
 
 -----------------------------------------------------------------------------------
 ### EXP2- CIRCUIT 2B – Common Source – Cascode Amplifier with Active Load
@@ -440,11 +514,15 @@ lies well within this range.
 
 ### Justification
 
-A moderate overdrive voltage
+A moderate overdrive voltage is selected to ensure proper operation
+of the MOSFET in the saturation region while maintaining good
+amplifier performance.
 
-• provides sufficient transconductance  
-• keeps current stable  
-• leaves headroom for signal swing
+• provides sufficient transconductance for effective signal amplification  
+• keeps the drain current relatively stable  
+• improves the linearity of the amplifier  
+• leaves adequate voltage headroom for signal swing  
+• prevents the transistor from entering the triode region during operation
 
 ---
 
@@ -488,9 +566,13 @@ satisfies the saturation condition.
 
 ---
 
-# Output Voltage Selection
+## Output Voltage Selection
 
-For maximum signal swing
+For maximum signal swing, the drain–source voltage is chosen
+close to the midpoint of the supply voltage. This biasing
+allows the output signal to swing equally in both positive
+and negative directions without driving the transistor into
+cutoff or triode region.
 
 VDS ≈ VDD / 2
 
@@ -498,11 +580,21 @@ VDS ≈ VDD / 2
 |-------------|--------|
 | VDS = 1.8 / 2 | **0.9 V** |
 
+Selecting the operating point near half the supply voltage
+ensures sufficient voltage headroom across the transistor,
+which helps maintain proper amplifier operation and prevents
+signal distortion.
+
 Output node voltage
 
 | Calculation | Result |
 |-------------|--------|
 | Vout = VDS + VS1 = 0.9 + 0.3 | **1.2 V** |
+
+The output voltage is therefore determined by the drain–source
+voltage of the transistor and the voltage at the intermediate
+node VS1. This operating point ensures that all devices remain
+in the desired region of operation.
 
 ---
 
@@ -514,8 +606,14 @@ Output node voltage
 | M1 (NMOS) | VDS1 ≥ VOV | 0.9 ≥ 0.25 ✔ |
 | M3 (PMOS) | VSD ≥ VOV | 0.6 ≥ 0.25 ✔ |
 
-All MOSFETs operate in **saturation region**.
+The above conditions confirm that all MOSFETs satisfy the
+required saturation criteria. Operating in the saturation
+region is essential for analog amplification because the
+drain current becomes primarily controlled by the gate
+voltage, allowing the circuit to provide stable and
+predictable voltage gain.
 
+Therefore, all MOSFETs operate in the **saturation region**.
 ---
 
 # Final DC Operating Point
@@ -665,8 +763,14 @@ which nearly matches AC and transient results (≈ 6.9 dB).
 
 The slight difference between theoretical and simulated gain
 occurs because theoretical calculations use simplified
-small-signal equations, while LTspice uses a complete BSIM
-model.
+small-signal equations, while LTspice uses a complete **BSIM
+(Berkeley Short-channel IGFET Model)** transistor model.
+
+Theoretical analysis assumes ideal device behavior and
+neglects several second-order effects that are present in
+practical MOSFET devices. In contrast, circuit simulation
+tools include detailed device models that represent the
+physical behavior of transistors more accurately.
 
 Simulation includes:
 
@@ -674,14 +778,33 @@ Simulation includes:
 • Parasitic capacitances  
 • Mobility degradation  
 • Higher-order device effects  
+• Body effect and short-channel effects  
+
+These non-ideal effects slightly modify the small-signal
+parameters such as **gm** and **ro**, which leads to small
+differences between calculated and simulated gain values.
 
 Hence, a small variation (few tenths of dB) is expected.
 
 ---------------------------------------------------------
 
-### EXP2- CIRCUIT C – Common Source Amplifier with Diode-Connected NMOS Current Source and PMOS Active Load
+### EXP2 – CIRCUIT C – Common Source Amplifier with Diode-Connected NMOS Current Source and PMOS Active Load
 -------------------------------------------------------------
 
+This configuration uses a **diode-connected NMOS transistor**
+to generate a reference current, while a **PMOS transistor**
+acts as an active load for the common source amplifier.
+
+The diode-connected NMOS establishes a stable bias current,
+which helps maintain a constant operating point for the
+amplifier. The PMOS active load provides a high effective
+output resistance compared to a simple resistor load,
+resulting in improved voltage gain.
+
+Such active load configurations are widely used in CMOS
+analog circuits and operational amplifier stages because
+they allow higher gain while consuming less chip area and
+power.
 ### Circuit Implementation in LTspice
 
 <img width="786" height="567" alt="2c" src="https://github.com/user-attachments/assets/b77c96a1-db8f-40ec-bd8e-6b743f5bc752" />
@@ -947,7 +1070,14 @@ Gain≈25.8dB
 The slight difference between theoretical and simulated gain
 occurs because theoretical calculations use simplified
 small-signal equations, while LTspice uses a complete MOSFET
-model (BSIM).
+device model based on **BSIM (Berkeley Short-channel IGFET Model)**.
+
+Theoretical analysis generally assumes ideal transistor
+behavior and neglects several non-ideal physical effects
+present in practical CMOS devices. In contrast, simulation
+tools include detailed device models that accurately
+represent transistor behavior under different operating
+conditions.
 
 Simulation includes:
 
@@ -955,9 +1085,14 @@ Simulation includes:
 • Parasitic capacitances  
 • Mobility degradation  
 • Body effect  
-• Exact gm and ro values from operating point  
+• Exact gm and ro values obtained from the operating point  
 
-Hence, a small variation (≈ 0.5–1 dB) is expected.
+These effects slightly modify the small-signal parameters
+of the transistor and therefore influence the overall gain
+of the amplifier.
+
+Hence, a small variation (≈ 0.5–1 dB) between theoretical
+and simulated results is expected.
 
 ----------
 
@@ -965,18 +1100,28 @@ Hence, a small variation (≈ 0.5–1 dB) is expected.
 
 ## Summary
 
-In this experiment, three MOSFET amplifier configurations were
-implemented and analyzed:
+In this experiment, three MOSFET amplifier configurations
+were implemented and analyzed using **TSMC 180 nm CMOS
+technology in LTspice**.
 
-• Circuit 2A – SOURCE DEGENERATED COMMON SOURCE AMPLIFIER
-  • Circuit 2B – Common Source – Cascode Amplifier with Active Load 
-• Circuit 2C –  Common Source Amplifier with Diode-Connected NMOS Current Source and PMOS Active Load
-For each circuit:
+• Circuit 2A – Source Degenerated Common Source Amplifier  
+• Circuit 2B – Common Source Cascode Amplifier with Active Load  
+• Circuit 2C – Common Source Amplifier with Diode-Connected NMOS Current Source and PMOS Active Load  
 
-- DC bias conditions were calculated.
-- Saturation of all transistors was verified.
-- Transient and AC analyses were performed.
-- Theoretical gain was derived and compared with simulation.
+For each circuit, the following steps were performed:
+
+- DC bias conditions were calculated to establish the
+  correct operating point.
+- Saturation of all MOSFETs was verified to ensure proper
+  amplifier operation.
+- Transient analysis was carried out to observe the
+  time-domain amplification and phase relationship between
+  input and output signals.
+- AC analysis was performed to determine the midband gain
+  and frequency response of the amplifier.
+- Theoretical voltage gain was derived using small-signal
+  analysis and compared with simulation results obtained
+  from LTspice.
 
 ------------------------------------------------------------
 
@@ -1015,3 +1160,13 @@ From the comparative study:
 Thus, different MOS configurations affect gain, output resistance,
 and bias stability significantly. The experimental results
 closely match theoretical calculations.
+
+The experiment also demonstrates the importance of proper
+biasing and saturation operation in MOSFET amplifiers.
+By maintaining correct operating conditions, the amplifier
+can achieve stable gain and linear signal amplification.
+
+Overall, the study highlights how different circuit
+topologies influence amplifier performance parameters
+such as voltage gain, bandwidth, and stability in
+CMOS analog circuit design.
