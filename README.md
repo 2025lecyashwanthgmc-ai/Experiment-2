@@ -9,9 +9,14 @@
 
 To design and analyze the following MOS amplifier configurations using TSMC 180nm CMOS technology in LTspice:
 
-1. Common Source Amplifier with Source Degeneration  
-2. Cascode Amplifier  
-3. Current Mirror Loaded Common Source Amplifier  
+1. Common Source Amplifier with Source Degeneration
+A Common Source Amplifier with Source Degeneration is a MOSFET amplifier configuration in which a resistor is connected in the source terminal of the transistor. The common source stage provides voltage amplification, while the source resistor introduces negative feedback. This feedback stabilizes the operating point and reduces the sensitivity of the circuit to device parameter variations. Although the gain is slightly reduced due to the source resistor, the amplifier becomes more linear, stable, and less sensitive to temperature or process variations.
+
+2. Cascode Amplifier
+A Cascode Amplifier is formed by combining a common source stage and a common gate stage in series. The lower transistor operates as a common source amplifier and provides the main transconductance, while the upper transistor operates as a common gate stage and increases the output resistance. This configuration significantly improves the voltage gain and bandwidth of the amplifier.
+
+3. Current Mirror Loaded Common Source Amplifier
+A Current Mirror Loaded Common Source Amplifier uses a current mirror as the load instead of a simple resistor. In this configuration, a PMOS transistor acts as an active load, providing a constant current to the amplifier. The active load has a very high effective resistance compared to a resistor, which significantly increases the voltage gain of the amplifier. This structure is widely used in CMOS analog circuits and operational amplifiers, because it allows high gain while consuming less chip area and power.
 
 ---
 ## 2. SOFTWARE REQUIRED
@@ -27,6 +32,13 @@ To design and analyze the following MOS amplifier configurations using TSMC 180n
 MOS amplifiers convert small input voltage variations into amplified output signals.  
 For proper amplification, MOSFETs must operate in the **saturation region**.
 
+In the saturation region, the drain current becomes primarily controlled by the gate–source voltage rather than the drain–source voltage.  
+Because of this property, the MOSFET behaves as a **voltage-controlled current source**, which is essential for analog amplification.
+
+When a small AC signal is applied at the gate terminal, it causes a corresponding variation in the drain current.  
+This current variation produces a larger voltage change across the load connected at the drain terminal, resulting in an amplified output signal.
+
+MOS amplifiers are widely used in **analog integrated circuits, operational amplifiers, filters, and communication systems** because they provide high input impedance, good gain, and easy integration in CMOS technology.
 ### MOSFET Equations
 
 | ID (Drain Current) | Vov (Overdrive) | gm (Transconductance) | ro (Output Resistance) | Av (Voltage Gain) |
